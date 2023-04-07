@@ -40,11 +40,11 @@
     "prettier": "^2.8.7"
   },
   "lint-staged": {
-    "src//**/*.{js,json,scss}": "prettier --single-quote --trailing-comma all --tab-width 2 --write"
+    "src/**/*.{js,json,scss}": "prettier --single-quote --trailing-comma all --tab-width 2 --write"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "npm run pre-commit"
     }
   }
 }
