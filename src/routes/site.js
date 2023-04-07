@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.use('/form', siteController.showForm);
 
-      router.use('/', siteController.index);
+router.use('/', siteController.index);
 
 export default router;
