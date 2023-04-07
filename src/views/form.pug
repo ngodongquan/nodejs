@@ -1,0 +1,15 @@
+doctype html
+//- action trong form dung de redirect toi mot page nào khác
+//- name la params data khi gui request
+form(method="POST" action="")
+  .form-group
+    label(for='exampleInputEmail1') nhập input
+    input#exampleInputEmail1.form-control(type='text' name='q' aria-describedby='emailHelp' placeholder='Nhập từ khóa')
+
+  select(name="gender")
+    option(value="") Chon gioi tinh
+    option(value="nam") Nam
+    option(value="nu") Nu
+
+  
+  button.btn.btn-primary(type='submit') Submit
