@@ -2,6 +2,7 @@ import express from 'express';
 import morgan from 'morgan';
 import path from 'path';
 import route from './routes/index.js';
+import db from './config/db/index.js';
 
 const app = express();
 const port = 3001;
@@ -9,6 +10,9 @@ const port = 3001;
 // declare file static
 const __dirname = path.resolve();
 app.use(express.static(path.join(__dirname, 'src/public')));
+
+// connect db
+db.connectDb();
 
 // middleware morgan
 app.use(morgan('combined'));
