@@ -5,9 +5,12 @@ const URL_CONNECT =
 const connectDb = async () => {
   try {
     await mongoose.connect(URL_CONNECT, {
+      dbName: 'MainCourse',
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
+    // const {db} = mongoose.connection
+    // db.collection('Paths').rename('pathrenames')
     console.log('connect succesfully');
   } catch (error) {
     console.log(error.message);

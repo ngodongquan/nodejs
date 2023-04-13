@@ -1,0 +1,74 @@
+html
+  head
+    title= title
+    link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css")
+    link(rel="stylesheet", href="/css/app.css", type='text/css')
+  body
+    a(class="btn btn-primary" type='button' id='detail-button' href=`/courses/add`) Add Course
+    a(class="btn btn-primary ml-2" type='button' id='detail-button' href=`/courses/deleted`)=`Recycle Courses (${countCourseDeleted})`
+    table(class="table")
+      thead
+        tr
+          th(scope="col") #
+          th(scope="col") Name
+          th(scope="col") Start Date
+          th(scope="col") End Date
+          th(scope="col")
+      tbody
+        each val, index in listCourses
+          tr
+            th(scope="row")=index+1
+            td=val.name
+            td=val.startDate
+            td=val.endDate
+            td
+              a(class="btn btn-primary" type='button' id='detail-button' href=`/courses/`+val._id) Course detail
+              a(class="btn btn-primary ml-2" type='button' id='detail-button' href=`/courses/${val._id}/edit/`) Course Edit
+              a(class="btn btn-danger btn-delete ml-2 text-white" type='button' data-id=val._id id='detail-button') Course Soft delete
+              button.btn.btn-danger.ml-2(type='button' data-toggle='modal' data-target='#exampleModal' data-whatever=`${val._id}`) Course Delete Confirm
+
+#exampleModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true')
+  .modal-dialog(role='document')
+    .modal-content
+      .modal-header
+        h5#exampleModalLabel.modal-title Delete
+        button.close(type='button' data-dismiss='modal' aria-label='Close')
+          span(aria-hidden='true') &times;
+      .modal-body Are you sure to delete this course?
+      .modal-footer
+        button.btn.btn-secondary(type='button' data-dismiss='modal') Close
+        button.btn.btn-danger.btn-delete-confirm(type='button') Delete
+
+form(method="POST" name="delete-course-form")
+
+    script(src="https://code.jquery.com/jquery-3.2.1.slim.min.js")
+    script(src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js")
+    script(src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js")
+
+    script.
+      document.addEventListener('DOMContentLoaded', function() {
+        const buttons = document.getElementsByClassName("btn-delete")
+        const form = document.forms['delete-course-form']
+        function buttonPressed  () {
+          form.action = `/courses/${this.getAttribute("data-id")}?_method=PATCH&deleted=true`
+          form.submit()
+        }
+
+        for (let button of buttons) {
+          button.addEventListener("click", buttonPressed);
+        }
+
+        $('#exampleModal').on('show.bs.modal', function (event) {
+          var button = $(event.relatedTarget) // Button that triggered the modal
+          var idCourse = button.data('whatever') // Extract info from data-* attributes
+          // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+          // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+          var modal = $(this)
+          //- modal.find('.modal-title').text('New message to ' + recipient)
+          modal.find('.modal-footer .btn-delete-confirm').on("click", function() {
+            form.action = `/courses/${idCourse}?_method=DELETE`
+            form.submit()
+          })
+        })
+      })
+      

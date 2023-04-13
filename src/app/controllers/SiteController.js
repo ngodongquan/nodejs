@@ -1,7 +1,9 @@
+import Course from '../models/Course.js';
+import mongooseUtils from '../../utils/mongoose.js';
 class SiteController {
   // [GET] home
-  index(req, res) {
-    res.render('index', { title: 'NodeJs', message: 'Hello world' });
+  async index(req, res, next) {
+    res.render('index', { message: 'Hello World', title: 'Express' });
   }
 
   // [GET] form

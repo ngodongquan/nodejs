@@ -3,9 +3,13 @@ import morgan from 'morgan';
 import path from 'path';
 import route from './routes/index.js';
 import db from './config/db/index.js';
+import methodOverride from 'method-override';
 
 const app = express();
 const port = 3001;
+
+// method override
+app.use(methodOverride('_method'));
 
 // declare file static
 const __dirname = path.resolve();
@@ -35,5 +39,5 @@ app.set('view engine', 'pug');
 route(app);
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`App listening on port ${port}`);
 });

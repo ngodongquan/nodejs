@@ -4,8 +4,8 @@ import newsController from '../app/controllers/NewController.js';
 // router
 const router = express.Router();
 
-router.use('/:slug', newsController.show);
+router.get('/:slug', newsController.show);
 
-router.use('/', newsController.index);
+router.get('/', newsController.index);
 
 export default router;
